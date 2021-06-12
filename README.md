@@ -1,30 +1,15 @@
 AudioEndPointController
 =======================
 
-A Windows command-line program for listing audio end-points and setting the default
+Adapted to be used as a DLL instead of an EXE as originally intended.
 
-	>EndPointController.exe --help
-	Lists active audio end-point playback devices or sets default audio end-point
-	playback device.
+How to use in C#
 
-	USAGE
-	  EndPointController.exe [-a] [-f format_str]  Lists audio end-point playback
-												   devices that are enabled.
-	  EndPointController.exe device_index          Sets the default playback device
-												   with the given index.
+	private const string EPC = "EndPointController.dll";
+	[DllImport(EPC)] [return: MarshalAs(UnmanagedType.BStr)] extern static string GetList();
+	[DllImport(EPC, CallingConvention = CallingConvention.Cdecl)] static extern IntPtr SetAudio(int deviceid);
 
-	OPTIONS
-	  -a             Display all devices, rather than just active devices.
-	  -f format_str  Outputs the details of each device using the given format
-					 string. If this parameter is ommitted the format string
-					 defaults to: "Audio Device %d: %ws"
+	[...]
 
-					 Parameters that are passed to the 'printf' function are
-					 ordered as follows:
-					   - Device index (int)
-					   - Device friendly name (wstring)
-					   - Device state (int)
-					   - Device default? (1 for true 0 for false as int)
-					   - Device description (wstring)
-					   - Device interface friendly name (wstring)
-					   - Device ID (wstring)
+	Console.WriteLine(GetList());
+	Console.WriteLine(SetAudio(4));
