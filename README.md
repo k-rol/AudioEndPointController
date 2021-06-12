@@ -1,7 +1,7 @@
 AudioEndPointController
 =======================
 
-Adapted to be used as a DLL instead of an EXE as originally intended.
+Adapted to be used as a DLL through P/INVOKE instead of an EXE as originally intended.
 
 How to use in C#
 
